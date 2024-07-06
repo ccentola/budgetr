@@ -8,6 +8,9 @@ axios.defaults.baseURL = "http://localhost:8000";
 function PlaidAuth({ publicToken }) {
   const [account, setAccount] = useState();
   const [transactions, setTransactions] = useState();
+  const [balance, setBalance] = useState();
+  const [items, setItems] = useState();
+  const [accounts, setAccounts] = useState();
 
   useEffect(() => {
     async function fetchData() {
@@ -25,6 +28,16 @@ function PlaidAuth({ publicToken }) {
       });
       console.log("transaction data ", transactions.data);
       setTransactions(transactions.data);
+      const balance = await axios.post("/api/balance", {
+        access_token: accessToken.data.accessToken,
+      });
+      console.log("balance data ", balance.data);
+      setBalance(balance.data);
+      const accounts = await axios.post("/api/accounts", {
+        access_token: accessToken.data.accessToken,
+      });
+      console.log("accounts data ", accounts.data);
+      setAccounts(accounts.data);
     }
     fetchData();
   }, []);

@@ -15,6 +15,10 @@ from plaid.model.link_token_create_request import LinkTokenCreateRequest
 from plaid.model.link_token_create_request_user import LinkTokenCreateRequestUser
 from plaid.model.transactions_sync_request import TransactionsSyncRequest
 from plaid.model.auth_get_request import AuthGetRequest
+from plaid.model.accounts_balance_get_request import AccountsBalanceGetRequest
+from plaid.model.accounts_get_request import AccountsGetRequest
+from plaid.model.item_get_request import ItemGetRequest
+from plaid.model.institutions_get_by_id_request import InstitutionsGetByIdRequest
 from plaid.model.item_public_token_exchange_request import (
     ItemPublicTokenExchangeRequest,
 )
@@ -134,11 +138,11 @@ def get_transactions():
             has_more = response["has_more"]
             # Update cursor to the next cursor
             cursor = response["next_cursor"]
-            pretty_print_response(response)
 
         # Return the 8 most recent transactions
-        latest_transactions = sorted(added, key=lambda t: t["date"])[-8:]
-        data = jsonable_encoder(latest_transactions)
+        # latest_transactions = sorted(added, key=lambda t: t["date"])[-8:]
+        # data = jsonable_encoder(latest_transactions)
+        data = jsonable_encoder(added)
         with open("data/transactions.json", "w", encoding="utf-8") as f:
             json.dump(data, f, ensure_ascii=False, indent=4)
         return data
@@ -151,7 +155,29 @@ def get_auth():
     try:
         request = AuthGetRequest(access_token=access_token)
         response = client.auth_get(request)
-        pretty_print_response(response.to_dict())
+        return jsonable_encoder(response.to_dict())
+    except ApiException as e:
+        return JSONResponse(status_code=e.status, content=e.body)
+
+
+@app.post("/api/balance")
+def get_balance():
+    try:
+        request = AccountsBalanceGetRequest(access_token=access_token)
+        response = client.accounts_balance_get(request)
+        data = jsonable_encoder(response.to_dict())
+        with open("data/balances.json", "w", encoding="utf-8") as f:
+            json.dump(data, f, ensure_ascii=False, indent=4)
+        return data
+    except ApiException as e:
+        return JSONResponse(status_code=e.status, content=e.body)
+
+
+@app.post("/api/accounts")
+def get_accounts():
+    try:
+        request = AccountsGetRequest(access_token=access_token)
+        response = client.accounts_get(request)
         return jsonable_encoder(response.to_dict())
     except ApiException as e:
         return JSONResponse(status_code=e.status, content=e.body)
