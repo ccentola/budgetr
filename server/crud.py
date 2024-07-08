@@ -23,9 +23,17 @@ def create_user(db: Session, user: schemas.UserCreate):
     return db_user
 
 
-def add_item(db: Session, user_id: int, access_token: str):
-    db_item = models.Item(user_id=user_id, access_token=access_token)
+def add_item(db: Session, user_id: int, access_token: str, item_id: str):
+    db_item = models.Item(user_id=user_id, item_id=item_id, access_token=access_token)
     db.add(db_item)
     db.commit()
     db.refresh(db_item)
     return db_item
+
+
+def add_account(db: Session, item_id: int, name: str, account_id: str):
+    db_account = models.Account(item_id=item_id, name=name, account_id=account_id)
+    db.add(db_account)
+    db.commit()
+    db.refresh(db_account)
+    return db_account

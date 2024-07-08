@@ -1,7 +1,7 @@
 {
     "accounts": [
         {
-            "account_id": "jNawDKw1eguQoN6vNMJbIDZ4n99nP1t6m8odX",
+            "account_id": "kqW8l1qmPrFezZ9x6kXnfnyajpXynBiLD4P9D",
             "balances": {
                 "available": 100.0,
                 "current": 110.0,
@@ -15,19 +15,38 @@
             "type": "depository",
             "subtype": "checking",
             "persistent_account_id": "8cfb8beb89b774ee43b090625f0d61d0814322b43bff984eaf60386e"
+        },
+        {
+            "account_id": "D5Dde35w69tPywDeEvlAt5QPMqEo38f3RAy1W",
+            "balances": {
+                "available": 200.0,
+                "current": 210.0,
+                "limit": null,
+                "iso_currency_code": "USD",
+                "unofficial_currency_code": null
+            },
+            "mask": "1111",
+            "name": "Plaid Saving",
+            "official_name": "Plaid Silver Standard 0.1% Interest Saving",
+            "type": "depository",
+            "subtype": "savings",
+            "persistent_account_id": "211a4e5d8361a3afb7a3886362198c7306e00a313b5aa944c20d34b6"
         }
     ],
     "item": {
-        "item_id": "pZeardaEJXcoL4v84JNRSWMGLX8KQVsL8E8an",
+        "item_id": "zQXDedQ5VESX3r8VMJElUvaqQb8PEZFo6GZex",
         "webhook": "",
         "error": null,
         "available_products": [
             "assets",
             "balance",
+            "credit_details",
             "signal",
             "identity",
             "identity_match",
+            "income",
             "income_verification",
+            "investments",
             "liabilities",
             "recurring_transactions"
         ],
@@ -37,11 +56,11 @@
         ],
         "consent_expiration_time": null,
         "update_type": "background",
-        "institution_id": "ins_127989",
+        "institution_id": "ins_127991",
         "products": [
             "auth",
             "transactions"
         ]
     },
-    "request_id": "3DU2JFoo1TCLPQH"
+    "request_id": "HJkFdAz63TBYPER"
 }

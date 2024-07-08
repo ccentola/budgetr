@@ -151,7 +151,7 @@ async def get_access_token(
         access_token = exchange_response.access_token
         item_id = exchange_response.item_id
         # add item to db
-        crud.add_item(db, user_id=user_id, access_token=access_token)
+        crud.add_item(db, user_id=user_id, access_token=access_token, item_id=item_id)
         # crud.add_item(db, item=item)
         return JSONResponse(content=exchange_response.to_dict())
     except ApiException as e:
@@ -219,10 +219,19 @@ def get_balance():
 
 
 @app.post("/api/accounts")
-def get_accounts():
+async def get_accounts(db: Session = Depends(get_db)):
     try:
         request = AccountsGetRequest(access_token=access_token)
         response = client.accounts_get(request)
+        data = jsonable_encoder(response.to_dict())
+        item_id = data["item"]["item_id"]
+        for account in data["accounts"]:
+            crud.add_account(
+                db,
+                item_id=item_id,
+                name=account["name"],
+                account_id=account["account_id"],
+            )
         return jsonable_encoder(response.to_dict())
     except ApiException as e:
         return JSONResponse(status_code=e.status, content=e.body)
