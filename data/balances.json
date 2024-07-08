@@ -1,7 +1,7 @@
 {
     "accounts": [
         {
-            "account_id": "ogadDJADNWCwAyqP7xRKFJr8Lv7o99FoqeRB7",
+            "account_id": "kqW8l1qmPrFezZ9x6kXnfnyajpXynBiLD4P9D",
             "balances": {
                 "available": 100.0,
                 "current": 110.0,
@@ -17,7 +17,7 @@
             "persistent_account_id": "8cfb8beb89b774ee43b090625f0d61d0814322b43bff984eaf60386e"
         },
         {
-            "account_id": "mpx3DgEDZaiDKnRxwerlu5Vk1xeQXWSgyZLKJ",
+            "account_id": "D5Dde35w69tPywDeEvlAt5QPMqEo38f3RAy1W",
             "balances": {
                 "available": 200.0,
                 "current": 210.0,
@@ -34,16 +34,19 @@
         }
     ],
     "item": {
-        "item_id": "geqlXP1XZNTkDz5M6WRKFEbz9EMWynCgr7wD9",
+        "item_id": "zQXDedQ5VESX3r8VMJElUvaqQb8PEZFo6GZex",
         "webhook": "",
         "error": null,
         "available_products": [
             "assets",
             "balance",
+            "credit_details",
             "signal",
             "identity",
             "identity_match",
+            "income",
             "income_verification",
+            "investments",
             "liabilities",
             "recurring_transactions"
         ],
@@ -53,11 +56,11 @@
         ],
         "consent_expiration_time": null,
         "update_type": "background",
-        "institution_id": "ins_127989",
+        "institution_id": "ins_127991",
         "products": [
             "auth",
             "transactions"
         ]
     },
-    "request_id": "d3cJQ2je0VSWc7x"
+    "request_id": "HJkFdAz63TBYPER"
 }

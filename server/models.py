@@ -17,6 +17,7 @@ class Item(Base):
     __tablename__ = "items"
 
     id = Column(Integer, primary_key=True)
+    item_id = Column(String)
     user_id = Column(Integer, ForeignKey("users.id"))
     access_token = Column(String)
     transaction_cursor = Column(String)
@@ -31,6 +32,7 @@ class Account(Base):
     __tablename__ = "accounts"
 
     id = Column(Integer, primary_key=True)
+    account_id = Column(String)
     item_id = Column(Integer, ForeignKey("items.id"))
     name = Column(String)
 

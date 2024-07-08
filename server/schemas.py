@@ -19,6 +19,7 @@ class User(UserBase):
 
 class ItemBase(BaseModel):
     user_id: int
+    item_id: str
     access_token: str
 
 
@@ -28,6 +29,7 @@ class ItemCreate(ItemBase):
 
 class Item(ItemBase):
     id: int
+    item_id: str
     user_id: int
     access_token: str
 
@@ -37,6 +39,7 @@ class Item(ItemBase):
 
 class AccountBase(BaseModel):
     item_id: int
+    account_id: str
     name: str
 
 
@@ -47,6 +50,7 @@ class AccountCreate(AccountBase):
 class Account(AccountBase):
     id: int
     item_id: int
+    account_id: str
     name: str
 
     class Config:
