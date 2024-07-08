@@ -15,3 +15,21 @@ class User(UserBase):
 
     class Config:
         orm_mode = True
+
+
+class ItemBase(BaseModel):
+    user_id: int
+    access_token: str
+
+
+class ItemCreate(ItemBase):
+    pass
+
+
+class Item(ItemBase):
+    id: int
+    user_id: int
+    access_token: str
+
+    class Config:
+        orm_mode = True

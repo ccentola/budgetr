@@ -17,8 +17,9 @@ from plaid.model.transactions_sync_request import TransactionsSyncRequest
 from plaid.model.auth_get_request import AuthGetRequest
 from plaid.model.accounts_balance_get_request import AccountsBalanceGetRequest
 from plaid.model.accounts_get_request import AccountsGetRequest
-from plaid.model.item_get_request import ItemGetRequest
-from plaid.model.institutions_get_by_id_request import InstitutionsGetByIdRequest
+
+# from plaid.model.item_get_request import ItemGetRequest
+# from plaid.model.institutions_get_by_id_request import InstitutionsGetByIdRequest
 from plaid.model.item_public_token_exchange_request import (
     ItemPublicTokenExchangeRequest,
 )
@@ -135,9 +136,13 @@ class PublicTokenForm(BaseModel):
 
 
 @app.post("/api/set_access_token")
-async def get_access_token(public_token: str = Body(..., embed=True)):
+async def get_access_token(
+    public_token: str = Body(..., embed=True),
+    db: Session = Depends(get_db),
+):
     print(public_token)
     global access_token, item_id, transfer_id
+    user_id = 1
     try:
         exchange_request = ItemPublicTokenExchangeRequest(public_token=public_token)
         exchange_response: ItemPublicTokenExchangeResponse = (
@@ -145,6 +150,9 @@ async def get_access_token(public_token: str = Body(..., embed=True)):
         )
         access_token = exchange_response.access_token
         item_id = exchange_response.item_id
+        # add item to db
+        crud.add_item(db, user_id=user_id, access_token=access_token)
+        # crud.add_item(db, item=item)
         return JSONResponse(content=exchange_response.to_dict())
     except ApiException as e:
         return JSONResponse(status_code=e.status, content=e.body)
