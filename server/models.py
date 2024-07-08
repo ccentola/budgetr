@@ -24,3 +24,14 @@ class Item(Base):
     is_active = Column(Integer, default=1)
 
     owner = relationship("User", back_populates="items")
+    accounts = relationship("Account", back_populates="owner")
+
+
+class Account(Base):
+    __tablename__ = "accounts"
+
+    id = Column(Integer, primary_key=True)
+    item_id = Column(Integer, ForeignKey("items.id"))
+    name = Column(String)
+
+    owner = relationship("Item", back_populates="accounts")

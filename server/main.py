@@ -219,10 +219,24 @@ def get_balance():
 
 
 @app.post("/api/accounts")
-def get_accounts():
-    try:
-        request = AccountsGetRequest(access_token=access_token)
-        response = client.accounts_get(request)
-        return jsonable_encoder(response.to_dict())
-    except ApiException as e:
-        return JSONResponse(status_code=e.status, content=e.body)
+async def get_accounts(db: Session = Depends(get_db)):
+
+    request = AccountsGetRequest(access_token=access_token)
+    response = client.accounts_get(request)
+    data = jsonable_encoder(response.to_dict())
+    item_id = data["item"]["item_id"]
+    for account in data["accounts"]:
+        crud.add_account(db, item_id=item_id, name=account["name"])
+        # print(f'item_id: {item_id}, name: {account["name"]}')
+
+    # print(data)
+    return jsonable_encoder(response.to_dict())
+
+
+#     accounts_data = response["data"]
+#     item_id = accounts_data[0].item_id
+#     for account in accounts_data:
+#         crud.add_account(db, item_id=item_id, name=account.name)
+#     return jsonable_encoder(response.to_dict())
+# except ApiException as e:
+#     return JSONResponse(status_code=e.status, content=e.body)

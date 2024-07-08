@@ -36,8 +36,8 @@ function PlaidAuth({ publicToken }) {
       const accounts = await axios.post("/api/accounts", {
         access_token: accessToken.data.accessToken,
       });
-      console.log("accounts data ", accounts.data);
-      setAccounts(accounts.data);
+      console.log("accounts data ", accounts);
+      setAccounts(accounts);
     }
     fetchData();
   }, []);

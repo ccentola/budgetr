@@ -33,3 +33,21 @@ class Item(ItemBase):
 
     class Config:
         orm_mode = True
+
+
+class AccountBase(BaseModel):
+    item_id: int
+    name: str
+
+
+class AccountCreate(AccountBase):
+    pass
+
+
+class Account(AccountBase):
+    id: int
+    item_id: int
+    name: str
+
+    class Config:
+        orm_mode = True

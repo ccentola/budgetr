@@ -29,3 +29,11 @@ def add_item(db: Session, user_id: int, access_token: str):
     db.commit()
     db.refresh(db_item)
     return db_item
+
+
+def add_account(db: Session, item_id: int, name: str):
+    db_account = models.Account(item_id=item_id, name=name)
+    db.add(db_account)
+    db.commit()
+    db.refresh(db_account)
+    return db_account
