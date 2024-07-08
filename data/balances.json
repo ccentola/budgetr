@@ -1,7 +1,7 @@
 {
     "accounts": [
         {
-            "account_id": "gGoJ5Q53GpIBmKlQDn9dhrWjXlgD7ouEpKDpW",
+            "account_id": "jNawDKw1eguQoN6vNMJbIDZ4n99nP1t6m8odX",
             "balances": {
                 "available": 100.0,
                 "current": 110.0,
@@ -18,7 +18,7 @@
         }
     ],
     "item": {
-        "item_id": "NBJn5m59BqIe3Zvk8WpVHrENGmmvR4uWobRj5",
+        "item_id": "pZeardaEJXcoL4v84JNRSWMGLX8KQVsL8E8an",
         "webhook": "",
         "error": null,
         "available_products": [
@@ -27,9 +27,7 @@
             "signal",
             "identity",
             "identity_match",
-            "income",
             "income_verification",
-            "investments",
             "liabilities",
             "recurring_transactions"
         ],
@@ -39,11 +37,11 @@
         ],
         "consent_expiration_time": null,
         "update_type": "background",
-        "institution_id": "ins_114213",
+        "institution_id": "ins_127989",
         "products": [
             "auth",
             "transactions"
         ]
     },
-    "request_id": "rGzCjZE7TZkuO80"
+    "request_id": "3DU2JFoo1TCLPQH"
 }

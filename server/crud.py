@@ -21,3 +21,11 @@ def create_user(db: Session, user: schemas.UserCreate):
     db.commit()
     db.refresh(db_user)
     return db_user
+
+
+def add_item(db: Session, user_id: int, access_token: str):
+    db_item = models.Item(user_id=user_id, access_token=access_token)
+    db.add(db_item)
+    db.commit()
+    db.refresh(db_item)
+    return db_item
