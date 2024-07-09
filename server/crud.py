@@ -64,3 +64,15 @@ def add_transaction(
     db.commit()
     db.refresh(db_transaction)
     return db_transaction
+
+
+def add_cursor_for_item(db: Session, transaction_cursor: str, item_id: str):
+    db_item = db.query(models.Item).filter(models.Item.item_id == item_id).first()
+    db_item.transaction_cursor = transaction_cursor
+    db.commit()
+    db.refresh(db_item)
+    return db_item
+
+
+def get_all_items_for_user(db: Session, user_id: int):
+    return db.query(models.Item).filter(models.Item.user_id == user_id).all()

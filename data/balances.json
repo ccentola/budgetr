@@ -1,7 +1,7 @@
 {
     "accounts": [
         {
-            "account_id": "DWReEVaZlytxXnBZDVbkf5xLRWpwbKi3WXdW8",
+            "account_id": "oEeEm8LBezIGDlAAL5RkhPWvaZJZ8BuoQw7zp",
             "balances": {
                 "available": 100.0,
                 "current": 110.0,
@@ -15,26 +15,10 @@
             "type": "depository",
             "subtype": "checking",
             "persistent_account_id": "8cfb8beb89b774ee43b090625f0d61d0814322b43bff984eaf60386e"
-        },
-        {
-            "account_id": "VQ13zrARMkcjwvxGLgPJIDdKvGAmE7t9gnlg8",
-            "balances": {
-                "available": 200.0,
-                "current": 210.0,
-                "limit": null,
-                "iso_currency_code": "USD",
-                "unofficial_currency_code": null
-            },
-            "mask": "1111",
-            "name": "Plaid Saving",
-            "official_name": "Plaid Silver Standard 0.1% Interest Saving",
-            "type": "depository",
-            "subtype": "savings",
-            "persistent_account_id": "211a4e5d8361a3afb7a3886362198c7306e00a313b5aa944c20d34b6"
         }
     ],
     "item": {
-        "item_id": "rQRx69V8BNcoy1mrQDZpU4o7zBrGb9Flll3mX",
+        "item_id": "EedeBor5dQCkQywwJgqGhlpk4PlzdJfXV9WNk",
         "webhook": "",
         "error": null,
         "available_products": [
@@ -60,5 +44,5 @@
             "transactions"
         ]
     },
-    "request_id": "AyB0zw6qwnai28K"
+    "request_id": "BwrMd7e7r5bl88L"
 }
