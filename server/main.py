@@ -186,10 +186,9 @@ def get_transactions(db: Session = Depends(get_db)):
             has_more = response["has_more"]
             # Update cursor to the next cursor
             cursor = response["next_cursor"]
+            # Update cursor for item
+            crud.add_cursor_for_item(db, cursor, item_id)
 
-        # Return the 8 most recent transactions
-        # latest_transactions = sorted(added, key=lambda t: t["date"])[-8:]
-        # data = jsonable_encoder(latest_transactions)
         data = jsonable_encoder(added)
         with open("data/transactions.json", "w", encoding="utf-8") as f:
             json.dump(data, f, ensure_ascii=False, indent=4)
@@ -251,3 +250,10 @@ async def get_accounts(db: Session = Depends(get_db)):
         return jsonable_encoder(response.to_dict())
     except ApiException as e:
         return JSONResponse(status_code=e.status, content=e.body)
+
+
+@app.get("/api/items")
+async def get_items(db: Session = Depends(get_db)):
+    user_id = 1
+    items = crud.get_all_items_for_user(db, user_id)
+    return items
