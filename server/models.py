@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import Column, Integer, String, ForeignKey, Float
 from sqlalchemy.orm import relationship
 
 from .database import Base
@@ -11,6 +11,7 @@ class User(Base):
     email = Column(String, unique=True, index=True)
 
     items = relationship("Item", back_populates="owner")
+    transactions = relationship("Transaction", back_populates="owner")
 
 
 class Item(Base):
@@ -37,3 +38,22 @@ class Account(Base):
     name = Column(String)
 
     owner = relationship("Item", back_populates="accounts")
+    transactions = relationship("Transaction", back_populates="account")
+
+
+class Transaction(Base):
+    __tablename__ = "transactions"
+
+    id = Column(Integer, primary_key=True)
+    user_id = Column(Integer, ForeignKey("users.id"))
+    account_id = Column(String, ForeignKey("accounts.id"))
+    category = Column(String)
+    date = Column(String)
+    authorized_date = Column(String)
+    name = Column(String)
+    amount = Column(Float)
+    currency_code = Column(String)
+    is_removed = Column(Integer, default=0)
+
+    owner = relationship("User", back_populates="transactions")
+    account = relationship("Account", back_populates="transactions")
