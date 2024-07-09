@@ -159,9 +159,12 @@ async def get_access_token(
 
 
 @app.post("/api/transactions")
-def get_transactions():
+def get_transactions(db: Session = Depends(get_db)):
     # Set cursor to empty to receive all historical updates
     cursor = ""
+
+    # get user id
+    user_id = 1
 
     # New transaction updates since "cursor"
     added = []
@@ -190,6 +193,19 @@ def get_transactions():
         data = jsonable_encoder(added)
         with open("data/transactions.json", "w", encoding="utf-8") as f:
             json.dump(data, f, ensure_ascii=False, indent=4)
+        for transaction in added:
+            category = (transaction.get("category") or [None])[0]
+            crud.add_transaction(
+                db,
+                user_id=user_id,
+                account_id=transaction["account_id"],
+                category=category,
+                date=transaction["date"],
+                authorized_date=transaction["authorized_date"],
+                name=transaction["name"],
+                amount=transaction["amount"],
+                currency_code=transaction["iso_currency_code"],
+            )
         return data
     except ApiException as e:
         return JSONResponse(status_code=e.status, content=e.body)

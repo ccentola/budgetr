@@ -37,3 +37,30 @@ def add_account(db: Session, item_id: int, name: str, account_id: str):
     db.commit()
     db.refresh(db_account)
     return db_account
+
+
+def add_transaction(
+    db: Session,
+    user_id: int,
+    account_id: str,
+    category: str,
+    date: str,
+    authorized_date: str,
+    name: str,
+    amount: float,
+    currency_code: str,
+):
+    db_transaction = models.Transaction(
+        user_id=user_id,
+        account_id=account_id,
+        category=category,
+        date=date,
+        authorized_date=authorized_date,
+        name=name,
+        amount=amount,
+        currency_code=currency_code,
+    )
+    db.add(db_transaction)
+    db.commit()
+    db.refresh(db_transaction)
+    return db_transaction
