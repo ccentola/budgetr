@@ -76,3 +76,23 @@ def add_cursor_for_item(db: Session, transaction_cursor: str, item_id: str):
 
 def get_all_items_for_user(db: Session, user_id: int):
     return db.query(models.Item).filter(models.Item.user_id == user_id).all()
+
+
+def get_latest_access_token(db: Session, user_id: int = 1):
+    return (
+        db.query(models.Item)
+        .filter(models.Item.user_id == user_id)
+        .order_by(models.Item.access_token.desc())
+        .first()
+        .access_token
+    )
+
+
+def get_latest_item_id(db: Session, user_id: int = 1):
+    return (
+        db.query(models.Item)
+        .filter(models.Item.user_id == user_id)
+        .order_by(models.Item.item_id.desc())
+        .first()
+        .item_id
+    )

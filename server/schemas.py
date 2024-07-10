@@ -55,3 +55,7 @@ class Account(AccountBase):
 
     class Config:
         orm_mode = True
+
+
+class PublicTokenForm(BaseModel):
+    public_token: str
