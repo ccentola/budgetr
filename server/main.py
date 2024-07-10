@@ -30,6 +30,7 @@ from plaid.exceptions import ApiException
 from sqlalchemy.orm import Session
 from . import crud, models, schemas
 from .database import SessionLocal, engine
+from .routers import balance
 
 load_dotenv()
 
@@ -220,17 +221,19 @@ def get_auth():
         return JSONResponse(status_code=e.status, content=e.body)
 
 
-@app.post("/api/balance")
-def get_balance():
-    try:
-        request = AccountsBalanceGetRequest(access_token=access_token)
-        response = client.accounts_balance_get(request)
-        data = jsonable_encoder(response.to_dict())
-        with open("data/balances.json", "w", encoding="utf-8") as f:
-            json.dump(data, f, ensure_ascii=False, indent=4)
-        return data
-    except ApiException as e:
-        return JSONResponse(status_code=e.status, content=e.body)
+# @app.post("/api/balance")
+# def get_balance():
+#     try:
+#         request = AccountsBalanceGetRequest(access_token=access_token)
+#         response = client.accounts_balance_get(request)
+#         data = jsonable_encoder(response.to_dict())
+#         with open("data/balances.json", "w", encoding="utf-8") as f:
+#             json.dump(data, f, ensure_ascii=False, indent=4)
+#         return data
+#     except ApiException as e:
+#         return JSONResponse(status_code=e.status, content=e.body)
+
+app.include_router(balance.router)
 
 
 @app.post("/api/accounts")
