@@ -1,6 +1,7 @@
 import time
 import json
-from fastapi import Depends, HTTPException, APIRouter, Request, Body, JSONResponse
+from fastapi import Depends, HTTPException, APIRouter, Request, Body
+from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
 from plaid.model.country_code import CountryCode
 from plaid.model.link_token_create_request import LinkTokenCreateRequest

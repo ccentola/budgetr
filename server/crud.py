@@ -86,3 +86,13 @@ def get_latest_access_token(db: Session, user_id: int = 1):
         .first()
         .access_token
     )
+
+
+def get_latest_item_id(db: Session, user_id: int = 1):
+    return (
+        db.query(models.Item)
+        .filter(models.Item.user_id == user_id)
+        .order_by(models.Item.item_id.desc())
+        .first()
+        .item_id
+    )

@@ -1,4 +1,3 @@
-import json
 from fastapi import Depends, APIRouter
 from fastapi.responses import JSONResponse
 from fastapi.encoders import jsonable_encoder
@@ -12,7 +11,7 @@ router = APIRouter()
 
 
 @router.post("/api/transactions")
-def get_transactions(access_token: str, item_id: str, db: Session = Depends(get_db)):
+def get_transactions(db: Session = Depends(get_db)):
     # Set cursor to empty to receive all historical updates
     cursor = ""
 
@@ -25,6 +24,8 @@ def get_transactions(access_token: str, item_id: str, db: Session = Depends(get_
     removed = []  # Removed transaction ids
     has_more = True
     try:
+        access_token = crud.get_latest_access_token(db, 1)
+        item_id = crud.get_latest_item_id(db, 1)
         # Iterate through each page of new transaction updates for item
         while has_more:
             request = TransactionsSyncRequest(
@@ -43,8 +44,7 @@ def get_transactions(access_token: str, item_id: str, db: Session = Depends(get_
             crud.add_cursor_for_item(db, cursor, item_id)
 
         data = jsonable_encoder(added)
-        with open("data/transactions.json", "w", encoding="utf-8") as f:
-            json.dump(data, f, ensure_ascii=False, indent=4)
+
         for transaction in added:
             category = (transaction.get("category") or [None])[0]
             crud.add_transaction(
